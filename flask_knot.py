@@ -70,3 +70,6 @@ class Knot(ContainerProxy):
         if not hasattr(app, 'extensions'):
             app.extensions = {}
         app.extensions['knot'] = self
+
+
+current_container = ContainerProxy(get_container)
