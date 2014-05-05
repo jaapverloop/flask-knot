@@ -2,7 +2,7 @@
 
 import unittest
 from flask import Flask
-from flask.ext.knot import Knot
+from flask.ext.knot import Knot, get_container
 
 
 def create_app():
@@ -37,6 +37,19 @@ class TestKnot(unittest.TestCase):
         dic.init_app(app)
 
         self.assertRaises(KeyError, lambda: dic['foo'])
+
+    def test_container_is_shared(self):
+        app1 = create_app()
+        app2 = create_app()
+
+        dic = Knot()
+        dic.init_app(app1)
+        dic.init_app(app2)
+
+        dic1 = get_container(app1)
+        dic2 = get_container(app2)
+
+        assert dic1 is dic2
 
 
 if __name__ == '__main__':
