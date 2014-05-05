@@ -51,6 +51,11 @@ class TestKnot(unittest.TestCase):
 
         assert dic1 is dic2
 
+    def test_registration_is_required(self):
+        app = create_app()
+
+        self.assertRaises(RuntimeError, lambda: get_container(app))
+
 
 if __name__ == '__main__':
     unittest.main()
